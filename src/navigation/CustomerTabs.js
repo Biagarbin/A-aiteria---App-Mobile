@@ -1,74 +1,44 @@
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Text } from "react-native";
 
-import HomeScreen from "../screens/HomeScreen";
+import CatalogScreen from "../screens/CatalogScreen"; 
 import CartScreen from "../screens/CartScreen";
 import PointsScreen from "../screens/PointsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
+function TextIcon({ simbolo, color }) {
+  return <Text style={{ fontSize: 22, color: color }}>{simbolo}</Text>;
+}
+
 export default function CustomerTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Início"
       screenOptions={{
-        headerStyle: {
-          backgroundColor: "#6D28D9",
-        },
-        headerTintColor: "#FFFFFF",
-        tabBarActiveTintColor: "#6D28D9",
-        tabBarInactiveTintColor: "#888888",
+        headerShown: false, // Esconde o header padrão para a tela ficar mais limpa
+        tabBarActiveTintColor: "#7C3AED",
+        tabBarInactiveTintColor: "#A0A0A0",
         tabBarStyle: {
-          height: 65,
-          paddingBottom: 8,
-          paddingTop: 7,
+          height: 70,
+          paddingBottom: 10,
+          paddingTop: 10,
           backgroundColor: "#FFFFFF",
-          borderTopColor: "#E5D9FF",
+          borderTopWidth: 0, // Remove a linha superior
+          elevation: 10, // Sombra suave (Android)
+          shadowColor: "#000", // Sombra suave (iOS)
+          shadowOffset: { width: 0, height: -2 },
+          shadowOpacity: 0.05,
+          shadowRadius: 10,
         },
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: "500" }
       }}
     >
-      <Tab.Screen
-        name="Início"
-        component={HomeScreen}
-        options={{
-          title: "MB Açaiteria",
-          tabBarIcon: () => <TextIcon simbolo="⌂" />,
-        }}
-      />
-
-      <Tab.Screen
-        name="Carrinho"
-        component={CartScreen}
-        options={{
-          tabBarIcon: () => <TextIcon simbolo="🛒" />,
-        }}
-      />
-
-      <Tab.Screen
-        name="Pontos"
-        component={PointsScreen}
-        options={{
-          tabBarIcon: () => <TextIcon simbolo="⭐" />,
-        }}
-      />
-
-      <Tab.Screen
-        name="Perfil"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: () => <TextIcon simbolo="👤" />,
-        }}
-      />
+      <Tab.Screen name="Início" component={CatalogScreen} options={{ tabBarIcon: ({ color }) => <TextIcon simbolo="🏠" color={color} /> }} />
+      <Tab.Screen name="Carrinho" component={CartScreen} options={{ tabBarIcon: ({ color }) => <TextIcon simbolo="🛒" color={color} /> }} />
+      <Tab.Screen name="Pontos" component={PointsScreen} options={{ tabBarIcon: ({ color }) => <TextIcon simbolo="⭐" color={color} /> }} />
+      <Tab.Screen name="Perfil" component={ProfileScreen} options={{ tabBarIcon: ({ color }) => <TextIcon simbolo="👤" color={color} /> }} />
     </Tab.Navigator>
   );
-}
-
-import { Text } from "react-native";
-
-function TextIcon({ simbolo }) {
-  return <Text style={{ fontSize: 20 }}>{simbolo}</Text>;
 }
